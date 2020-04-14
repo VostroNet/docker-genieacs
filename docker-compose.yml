@@ -1,68 +1,40 @@
-version: "3"
+version: '3'
 services:
     db:
-        image: mongo:4.0 
+        image: 'mongo:4.0'
         restart: always
-        env_file:
-            - envs/db.env
         volumes:
-            - data_db:/data/db
-            - data_configdb:/data/configdb
-            - logs:/var/log
+            - 'data_db:/data/db'
+            - 'data_configdb:/data/configdb'
+            - 'var_log:/var/log'
     core-cwmp:
-        image: mxhob1/genieacs
+        image: mxhob1/genieacs:cwmp
         depends_on:
             - db
-        env_file:
-            - envs/core.env
         volumes:
-            - core:/opt/genieacs/config
-            - logs:/var/log
-        entrypoint: "/usr/bin/genieacs-cwmp"
-        ports:
-            - "7547:7547"
+            - 'var_log:/var/log'
     core-nbi:
-        image: mxhob1/genieacs
+        image: mxhob1/genieacs:nbi
         depends_on:
             - core-cwmp
-        env_file:
-            - envs/core.env
         volumes:
-            - core:/opt/genieacs/config
-            - logs:/var/log
-        entrypoint: "/usr/bin/genieacs-nbi"
-        ports:
-            - "7557:7557"
+            - 'var_log:/var/log'
     core-fs:
-        image: mxhob1/genieacs
+        image: mxhob1/genieacs:fs
         depends_on:
             - core-cwmp
-        env_file:
-            - envs/core.env
         volumes:
-            - core:/opt/genieacs/config
-            - logs:/var/log
-        entrypoint: "/usr/bin/genieacs-fs"
-        ports:
-            - "7567:7567"
+            - 'var_log:/var/log'
     core-ui:
-        image: mxhob1/genieacs
+        image: mxhob1/genieacs:ui
         depends_on:
             - core-cwmp
-        env_file:
-            - envs/core.env
         volumes:
-            - core:/opt/genieacs/config
-            - logs:/var/log
-        entrypoint: "/usr/bin/genieacs-ui --ui-jwt-secret secret"
-        ports:
-            - "3000:3000"
+            - 'var_log:/var/log'
 volumes:
     data_db:
-      driver: local
+        driver: local
     data_configdb:
-      driver: local
-    core:
-      driver: local
-    logs:
-      driver: local
+        driver: local
+    var_log:
+        driver: local
