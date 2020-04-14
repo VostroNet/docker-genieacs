@@ -8,9 +8,9 @@ RUN apk update && \
       build-base \
       python3
 
-RUN git clone https://github.com/genieacs/genieacs.git /install/genieacs
+RUN git clone https://github.com/genieacs/genieacs.git /install
 
-WORKDIR /install/genieacs
+WORKDIR /install
 
 RUN npm install && \
     npm run build
@@ -19,7 +19,7 @@ RUN npm install && \
 ARG FROM
 FROM ${FROM} as main
 
-COPY --from=builder /install /opt
+COPY --from=builder /install /opt/genieacs
 
 WORKDIR /opt/genieacs
 
