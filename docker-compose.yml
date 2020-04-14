@@ -10,7 +10,7 @@ services:
             - data_configdb:/data/configdb
             - logs:/var/log
     core-cwmp:
-        build: core
+        image: mxhob1/genieacs
         depends_on:
             - db
         env_file:
@@ -22,7 +22,7 @@ services:
         ports:
             - "7547:7547"
     core-nbi:
-        build: core
+        image: mxhob1/genieacs
         depends_on:
             - core-cwmp
         env_file:
@@ -34,7 +34,7 @@ services:
         ports:
             - "7557:7557"
     core-fs:
-        build: core
+        image: mxhob1/genieacs
         depends_on:
             - core-cwmp
         env_file:
@@ -46,7 +46,7 @@ services:
         ports:
             - "7567:7567"
     core-ui:
-        build: core
+        image: mxhob1/genieacs
         depends_on:
             - core-cwmp
         env_file:
@@ -55,7 +55,6 @@ services:
             - core:/opt/genieacs/config
             - logs:/var/log
         entrypoint: "/usr/bin/genieacs-ui --ui-jwt-secret secret"
-        #entrypoint: "/bin/sh"
         ports:
             - "3000:3000"
 volumes:
