@@ -1,6 +1,5 @@
-## Build Stage
-ARG FROM=node:12-alpine
-FROM ${FROM} as builder
+FROM node:12-alpine as builder
+LABEL MAINTAINER="Michael Hobl <michael+docker@hobl.com.au>"
 
 RUN apk update && \
     apk add --no-cache \
@@ -15,9 +14,7 @@ WORKDIR /install
 RUN npm install && \
     npm run build
 
-## Main Stage   
-ARG FROM
-FROM ${FROM} as main
+FROM node:12-alpine as main
 
 COPY --from=builder /install /opt/genieacs
 
@@ -27,7 +24,4 @@ RUN apk add --no-cache \
       coreutils
 RUN mkdir -p /opt/genieacs/config
 
-RUN ln -s /opt/genieacs/dist/bin/genieacs-cwmp /usr/bin/genieacs-cwmp && \
-    ln -s /opt/genieacs/dist/bin/genieacs-fs /usr/bin/genieacs-fs && \
-    ln -s /opt/genieacs/dist/bin/genieacs-nbi /usr/bin/genieacs-nbi && \
-    ln -s /opt/genieacs/dist/bin/genieacs-ui /usr/bin/genieacs-ui
+VOLUME ["/var/log"]
