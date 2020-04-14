@@ -24,4 +24,7 @@ RUN apk add --no-cache \
       coreutils
 RUN mkdir -p /opt/genieacs/config
 
+ENV GENIEACS_MONGODB_CONNECTION_URL=mongodb://db/genieacs
+ENV GENIEACS_DEBUG_FILE=/var/log/genieacs-debug.yaml
+
 VOLUME ["/var/log"]
