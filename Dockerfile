@@ -23,7 +23,8 @@ COPY --from=builder /install /opt/genieacs
 
 WORKDIR /opt/genieacs
 
-RUN apk add --no-cache coreutils
+RUN apk add --no-cache \
+      coreutils
 RUN mkdir -p /opt/genieacs/config
 
 RUN ln -s /opt/genieacs/dist/bin/genieacs-cwmp /usr/bin/genieacs-cwmp && \
