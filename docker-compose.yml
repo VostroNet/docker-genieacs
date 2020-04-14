@@ -8,7 +8,7 @@ services:
         volumes:
             - data_db:/data/db
             - data_configdb:/data/configdb
-            - logs:/var/log
+            - var_log:/var/log
     core-cwmp:
         image: mxhob1/genieacs
         depends_on:
@@ -64,5 +64,5 @@ volumes:
       driver: local
     core:
       driver: local
-    logs:
+    var_log:
       driver: local
