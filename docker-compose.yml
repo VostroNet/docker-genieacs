@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
     db:
         image: 'mongo:4.0'
@@ -8,7 +8,7 @@ services:
             - 'data_configdb:/data/configdb'
             - 'var_log:/var/log'
     core-cwmp:
-        image: mxhob1/genieacs:cwmp
+        image: vostro/genieacs:cwmp
         depends_on:
             - db
         ports:
@@ -16,7 +16,7 @@ services:
         volumes:
             - 'var_log:/var/log'
     core-nbi:
-        image: mxhob1/genieacs:nbi
+        image: vostro/genieacs:nbi
         depends_on:
             - core-cwmp
         ports:
@@ -24,7 +24,7 @@ services:
         volumes:
             - 'var_log:/var/log'
     core-fs:
-        image: mxhob1/genieacs:fs
+        image: vostro/genieacs:fs
         depends_on:
             - core-cwmp
         ports:
@@ -32,7 +32,7 @@ services:
         volumes:
             - 'var_log:/var/log'
     core-ui:
-        image: mxhob1/genieacs:ui
+        image: vostro/genieacs:ui
         depends_on:
             - core-cwmp
         ports:

@@ -1,5 +1,5 @@
-FROM mxhob1/genieacs:base
-LABEL MAINTAINER="Michael Hobl <michael+docker@hobl.com.au>"
+FROM vostro/genieacs:base
+LABEL MAINTAINER="Michael Hobl <mhobl@vostronet.com>"
 
 RUN ln -s /opt/genieacs/dist/bin/genieacs-ui /usr/bin/genieacs-ui
 ENV GENIEACS_UI_ACCESS_LOG_FILE=/var/log/ui-access.log
