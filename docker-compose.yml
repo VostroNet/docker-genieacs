@@ -11,24 +11,32 @@ services:
         image: mxhob1/genieacs:cwmp
         depends_on:
             - db
+        ports:
+            - 7547:7547
         volumes:
             - 'var_log:/var/log'
     core-nbi:
         image: mxhob1/genieacs:nbi
         depends_on:
             - core-cwmp
+        ports:
+            - 7557:7557
         volumes:
             - 'var_log:/var/log'
     core-fs:
         image: mxhob1/genieacs:fs
         depends_on:
             - core-cwmp
+        ports:
+            - 7567:7567
         volumes:
             - 'var_log:/var/log'
     core-ui:
         image: mxhob1/genieacs:ui
         depends_on:
             - core-cwmp
+        ports:
+            - 3000:3000
         volumes:
             - 'var_log:/var/log'
 volumes:
