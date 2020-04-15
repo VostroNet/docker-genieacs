@@ -6,4 +6,4 @@ ENV GENIEACS_UI_ACCESS_LOG_FILE=/var/log/ui-access.log
 ENV JWTSECRET="secret"
 
 EXPOSE 3000
-ENTRYPOINT ["/usr/bin/genieacs-ui --ui-jwt-secret $JWTSECRET"]
+ENTRYPOINT [ "sh", "-c", "/usr/bin/genieacs-ui --ui-jwt-secret $JWTSECRET"]
