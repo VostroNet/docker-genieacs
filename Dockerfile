@@ -27,4 +27,8 @@ RUN mkdir -p /opt/genieacs/config
 ENV GENIEACS_MONGODB_CONNECTION_URL=mongodb://db/genieacs
 ENV GENIEACS_DEBUG_FILE=/var/log/genieacs-debug.yaml
 
+RUN addgroup -S genieacs && adduser -S genieacs -G genieacs \
+  && chown -R genieacs:genieacs /opt/genieacs
+USER genieacs
+
 VOLUME ["/var/log"]
