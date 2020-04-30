@@ -32,3 +32,4 @@ RUN addgroup -S genieacs && adduser -S genieacs -G genieacs \
 USER genieacs
 
 VOLUME ["/var/log"]
+RUN mkdir -p /var/log/genieacs && chown genieacs:genieacs /var/log/genieacs
