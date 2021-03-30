@@ -1,35 +1,24 @@
-FROM node:12-alpine as builder
-LABEL MAINTAINER="Michael Hobl <mhobl@vostronet.com>"
+FROM node:14-alpine
 
-RUN apk update && \
-    apk add --no-cache \
-      git \
-      build-base \
-      python3
+RUN apk add --no-cache coreutils && npm install -g --unsafe-perm genieacs@1.2.3
 
-RUN git clone https://github.com/genieacs/genieacs.git /install
-
-WORKDIR /install
-
-RUN npm install && \
-    npm run build
-
-FROM node:12-alpine as main
-
-COPY --from=builder /install /opt/genieacs
-
-WORKDIR /opt/genieacs
-
-RUN apk add --no-cache \
-      coreutils
-RUN mkdir -p /opt/genieacs/config
-
-ENV GENIEACS_MONGODB_CONNECTION_URL=mongodb://db/genieacs
-ENV GENIEACS_DEBUG_FILE=/var/log/genieacs-debug.yaml
+RUN mkdir -p /app/config && mkdir -p /app/ext && mkdir -p /app/logs
 
 RUN addgroup -S genieacs && adduser -S genieacs -G genieacs \
-  && chown -R genieacs:genieacs /opt/genieacs
-RUN mkdir -p /var/log/genieacs && chown genieacs:genieacs /var/log/genieacs
+  && chown -R genieacs:genieacs /app
 
-USER genieacs
-VOLUME ["/var/log"]
+ENV GENIEACS_EXT_DIR=/app/ext
+ENV GENIEACS_UI_JWT_SECRET=secret
+ENV GENIEACS_MONGODB_CONNECTION_URL=mongodb://mongo/genieacs
+
+ENV GENIEACS_CWMP_WORKER_PROCESSES=1
+ENV GENIEACS_NBI_WORKER_PROCESSES=1
+ENV GENIEACS_FS_WORKER_PROCESSES=1
+ENV GENIEACS_UI_WORKER_PROCESSES=1
+
+# USER genieacs
+
+WORKDIR /app
+
+
+

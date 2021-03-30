@@ -1,0 +1,8 @@
+FROM nginx:alpine
+
+
+COPY ./nginx /
+
+RUN chmod +x /run.sh
+
+ENTRYPOINT /run.sh
