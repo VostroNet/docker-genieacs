@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-RUN apk add --no-cache coreutils && npm install -g --unsafe-perm genieacs@1.2.3
+RUN apk add --no-cache coreutils && npm install -g --unsafe-perm genieacs@1.2.7
 
 RUN mkdir -p /app/config && mkdir -p /app/ext && mkdir -p /app/logs
 
